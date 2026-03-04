@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital Unlocked | The Wealth Circle</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #09090f; color: #e8e4dc; font-family: 'Georgia', serif; min-height: 100vh; overflow-x: hidden; }
+  .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #9b7f4e, #c49a4a); z-index: 200; transition: width 0.08s linear; width: 0%; }
+  .container { max-width: 800px; margin: 0 auto; padding: 72px 32px 100px; position: relative; z-index: 1; }
+  .eyebrow { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #9b7f4e; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, #1e1c26, transparent); }
+  h1 { font-size: clamp(38px, 6.5vw, 62px); font-weight: normal; line-height: 1.08; letter-spacing: -0.025em; color: #f0ebe0; margin-bottom: 24px; }
+  h1 em { color: #c49a4a; font-style: normal; }
+  .lede { font-family: 'Arial', sans-serif; font-size: 15px; color: #7a7265; line-height: 1.7; max-width: 560px; margin-bottom: 56px; }
+  .problem { border-left: 2px solid #9b7f4e; padding: 26px 30px; background: #0d0c16; margin-bottom: 64px; border-radius: 0 4px 4px 0; }
+  .problem p { font-size: 16px; line-height: 1.8; color: #b8b0a0; }
+  .problem p strong { color: #e8e4dc; font-weight: normal; }
+  .section-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #9b7f4e; margin-bottom: 24px; }
+  .tab-nav { display: flex; margin-bottom: 32px; background: #0d0c16; border: 1px solid #1a1826; border-radius: 6px; padding: 4px; width: fit-content; }
+  .tab-btn { background: transparent; border: none; padding: 11px 26px; font-family: 'Arial', sans-serif; font-size: 12px; letter-spacing: 0.08em; color: #4a4840; cursor: pointer; border-radius: 4px; transition: all 0.2s; text-transform: uppercase; }
+  .tab-btn.active { background: #16141f; color: #c49a4a; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+  .tab-panel { display: none; animation: fadeUp 0.22s ease; }
+  .tab-panel.visible { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+  @media (max-width: 640px) {
+    .container { padding: 48px 20px 80px; }
+    h1 { font-size: clamp(30px, 9vw, 42px); margin-bottom: 18px; }
+    .lede { font-size: 14px; margin-bottom: 40px; }
+    .problem { padding: 20px 20px; margin-bottom: 48px; }
+    .problem p { font-size: 14px; line-height: 1.75; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .tab-nav { width: 100%; }
+    .tab-btn { flex: 1; padding: 12px 10px; font-size: 11px; letter-spacing: 0.05em; }
+    .for-cols { grid-template-columns: 1fr; }
+    .feature-card { padding: 20px 18px; }
+    .card-title { font-size: 15px; padding-right: 20px; }
+    .card-body { font-size: 13px; }
+    .feature-row { padding: 18px 18px; }
+    .row-title { font-size: 14px; }
+    .row-body { font-size: 13px; }
+    .for-col { padding: 22px 18px; }
+    .for-item { font-size: 13px; }
+    .not-for { padding: 20px 18px; }
+    .not-for p { font-size: 13px; }
+    .cta-block { padding: 36px 24px; }
+    .cta-block h3 { font-size: clamp(20px, 6vw, 26px); }
+    .cta-block p { font-size: 13px; margin-bottom: 24px; }
+    .cta-btn { width: 100%; padding: 16px 24px; font-size: 11px; display: block; text-align: center; }
+    .footer { font-size: 11px; }
+    .section { margin-bottom: 48px; }
+    .for-section { margin-bottom: 48px; }
+  }
+  .feature-card { background: #0d0c16; border: 1px solid #191727; border-radius: 6px; padding: 26px 24px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; position: relative; overflow: hidden; }
+  .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, #9b7f4e 0%, transparent 100%); opacity: 0; transition: opacity 0.2s; }
+  .feature-card:hover { border-color: #2e2b3a; transform: translateY(-2px); }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-card.open { border-color: #9b7f4e; background: #0f0e1a; }
+  .feature-card.open::before { opacity: 1; }
+  .card-num { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: #c49a4a; margin-bottom: 10px; }
+  .card-title { font-size: 16px; color: #e8e4dc; line-height: 1.3; }
+  .card-body { font-family: 'Arial', sans-serif; font-size: 13px; color: #7a7265; line-height: 1.7; margin-top: 14px; display: none; }
+  .feature-card.open .card-body { display: block; }
+  .card-arrow { position: absolute; top: 22px; right: 20px; font-size: 11px; color: #3a3530; transition: color 0.2s, transform 0.2s; }
+  .feature-card.open .card-arrow { color: #9b7f4e; transform: rotate(90deg); }
+  .feature-row { background: #0d0c16; border: 1px solid #191727; border-radius: 6px; padding: 22px 26px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.2s; }
+  .feature-row:hover { border-color: #2e2b3a; }
+  .feature-row.open { border-color: #9b7f4e; }
+  .row-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .row-left { display: flex; align-items: center; gap: 16px; }
+  .row-icon { width: 36px; height: 36px; background: #16141f; border: 1px solid #2a2636; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .row-title { font-size: 15px; color: #d8d0c0; }
+  .row-arrow { font-size: 11px; color: #3a3530; transition: color 0.2s, transform 0.2s; flex-shrink: 0; }
+  .feature-row.open .row-arrow { color: #9b7f4e; transform: rotate(90deg); }
+  .row-body { font-family: 'Arial', sans-serif; font-size: 13px; color: #7a7265; line-height: 1.7; margin-top: 16px; padding-top: 16px; border-top: 1px solid #191727; display: none; }
+  .feature-row.open .row-body { display: block; }
+  .for-section { margin-bottom: 64px; }
+  .for-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .for-col { background: #0d0c16; border: 1px solid #191727; border-radius: 6px; padding: 28px 24px; }
+  .for-col-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #9b7f4e; margin-bottom: 16px; }
+  .for-item { font-family: 'Arial', sans-serif; font-size: 13px; color: #8a8070; line-height: 1.6; padding: 9px 0; border-bottom: 1px solid #14121e; display: flex; align-items: flex-start; gap: 10px; }
+  .for-item:last-child { border-bottom: none; }
+  .for-dot { color: #c49a4a; flex-shrink: 0; margin-top: 2px; }
+  .not-for { background: #0d0c16; border: 1px solid #191727; border-radius: 6px; padding: 24px 26px; margin-top: 14px; }
+  .not-for-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #4a3830; margin-bottom: 12px; }
+  .not-for p { font-family: 'Arial', sans-serif; font-size: 13px; color: #4a4840; line-height: 1.7; }
+  .cta-block { background: #0d0c16; border: 1px solid #1e1c2a; border-radius: 8px; padding: 48px 40px; text-align: center; position: relative; overflow: hidden; margin-bottom: 48px; }
+  .cta-block::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 240px; height: 1px; background: linear-gradient(90deg, transparent, #9b7f4e, transparent); }
+  .cta-block h3 { font-size: clamp(24px, 4vw, 32px); font-weight: normal; color: #f0ebe0; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .cta-block p { font-family: 'Arial', sans-serif; font-size: 14px; color: #5a5448; line-height: 1.65; max-width: 400px; margin: 0 auto 32px; }
+  .cta-btn { display: inline-block; background: #9b7f4e; color: #09090f; font-family: 'Arial', sans-serif; font-size: 12px; font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; padding: 16px 44px; border-radius: 3px; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+  .cta-btn:hover { background: #c49a4a; transform: translateY(-1px); }
+  .footer { text-align: center; font-family: 'Arial', sans-serif; font-size: 11px; color: #2a2826; letter-spacing: 0.05em; padding-top: 32px; border-top: 1px solid #12111a; line-height: 1.8; }
+  .footer span { color: #3a3830; }
+  .section { margin-bottom: 64px; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="container">
+
+  <div class="eyebrow">Capital Unlocked &nbsp;&bull;&nbsp; The Wealth Circle</div>
+
+  <h1>The infrastructure<br>serious capital raisers<br>are <em>missing.</em></h1>
+
+  <p class="lede">Two programs. One ecosystem. Built for operators who are done piecing it together and need the real structure, real network, and real coaching to move capital at scale.</p>
+
+  <div class="problem">
+    <p>Most people raising capital aren't losing because the deal is bad. They're losing because they don't look like someone worth betting on. <strong>No structure. No track record presentation. No access to real capital partners.</strong> That's the gap. That's what this fixes.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The programs</div>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('cu', this)">Capital Unlocked</button>
+      <button class="tab-btn" onclick="switchTab('twc', this)">The Wealth Circle</button>
+    </div>
+
+    <div class="tab-panel visible" id="tab-cu">
+      <div class="feature-grid">
+        <div class="feature-card open" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">01</div>
+          <div class="card-title">The W.A.R. System</div>
+          <div class="card-body">Warm outreach, Anchored positioning, Relationship velocity. A capital-raising framework built for execution, not theory. You leave with a running outreach engine, a positioned offer, and a pipeline actively working by Week 3.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">02</div>
+          <div class="card-title">Investor-Ready Pitch Deck</div>
+          <div class="card-body">We build and pressure-test the actual deck you'll use with capital partners. Not a template. A real presentation reviewed against what institutional investors actually look for before they commit.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">03</div>
+          <div class="card-title">Offer Clarity Framework</div>
+          <div class="card-body">Most operators can't clearly answer "what are you raising, why now, and why you." This forces that clarity. You'll know exactly what to say in the first 90 seconds of any investor conversation, and you'll mean it.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">04</div>
+          <div class="card-title">Investor Outreach Engine</div>
+          <div class="card-body">Databases, sequencing, warm intro strategy, cold frameworks that actually convert. An active outreach system running by Week 3, not a list of names you're unsure how to contact.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">05</div>
+          <div class="card-title">Data Room Build-Out</div>
+          <div class="card-body">Track record documents, deal summaries, financials formatted for capital partners, and the exact structure that makes a sophisticated investor comfortable enough to wire. Most operators never build this. That's why they stall at soft commits.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">06</div>
+          <div class="card-title">Live Weekly Coaching Calls</div>
+          <div class="card-body">Two calls per week. Tuesday Capital Architecture sessions. Thursday onboarding and training. You're working your actual raise in real time, not watching someone explain a concept. Real deals, real objections, real feedback.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">07</div>
+          <div class="card-title">Investor Call Mastery</div>
+          <div class="card-body">Scripts, objection handling, live call transcripts reviewed in session, and the language that keeps a conversation moving toward commitment. What not to say is often more valuable than the script itself.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">08</div>
+          <div class="card-title">Deal Structure Education</div>
+          <div class="card-body">SAFEs, equity splits, promissory notes, preferred returns, hybrid structures. Mechanics you understand well enough to structure deals that make sense for both sides and have an informed conversation with counsel before signing.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">09</div>
+          <div class="card-title">Track Record Positioning</div>
+          <div class="card-body">Even operators with limited history have a story to tell. We help you build a credible, defensible track record presentation that communicates experience, judgment, and execution, without overstating what isn't there.</div>
+        </div>
+        <div class="feature-card" onclick="toggleCard(this)">
+          <div class="card-arrow">&#9654;</div>
+          <div class="card-num">10</div>
+          <div class="card-title">Closing the Wire</div>
+          <div class="card-body">From soft commit to funded. The last 20% of a raise is where most deals fall apart. You'll know how to move from "I'm in" to wired funds, including follow-up sequencing, commitment tracking, and the operational steps most people miss.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-twc">
+      <div class="feature-row open" onclick="toggleRow(this)">
+        <div class="row-header">
+          <div class="row-left"><div class="row-icon">&#127963;</div><div class="row-title">Private Investor Network</div></div>
+          <div class="row-arrow">&#9654;</div>
+        </div>
+        <div class="row-body">Access to a curated network of accredited investors, private lenders, and family offices actively deploying capital. Not a directory. A vetted, living network where introductions happen when your deal and positioning meet the bar. Quality over volume, by design.</div>
+      </div>
+      <div class="feature-row" onclick="toggleRow(this)">
+        <div class="row-header">
+          <div class="row-left"><div class="row-icon">&#128193;</div><div class="row-title">LP Resources Vault</div></div>
+          <div class="row-arrow">&#9654;</div>
+        </div>
+        <div class="row-body">Due diligence checklists, investment playbooks, market guides, and LP-facing educational content built to help you understand what the other side of the table is thinking. Know how capital partners evaluate deals and you'll structure yours to match.</div>
+      </div>
+      <div class="feature-row" onclick="toggleRow(this)">
+        <div class="row-header">
+          <div class="row-left"><div class="row-icon">&#128202;</div><div class="row-title">Curated Deal Flow</div></div>
+          <div class="row-arrow">&#9654;</div>
+        </div>
+        <div class="row-body">Members view active deal opportunities. Full access, including deal names, data rooms, and contact details, is tiered. Operators submit deals for review. The network sees what gets through. Curated deal flow, not a bulletin board.</div>
+      </div>
+      <div class="feature-row" onclick="toggleRow(this)">
+        <div class="row-header">
+          <div class="row-left"><div class="row-icon">&#127897;</div><div class="row-title">Exclusive Member Sessions</div></div>
+          <div class="row-arrow">&#9654;</div>
+        </div>
+        <div class="row-body">Conversations with wealth advisors, institutional allocators, family office principals, and operators who've closed significant raises. Not recycled podcast content. Sessions designed for people actively raising or deploying, not passively learning.</div>
+      </div>
+      <div class="feature-row" onclick="toggleRow(this)">
+        <div class="row-header">
+          <div class="row-left"><div class="row-icon">&#128172;</div><div class="row-title">VIP Investor Community</div></div>
+          <div class="row-arrow">&#9654;</div>
+        </div>
+        <div class="row-body">A private community for deal conversation, introductions, and peer accountability. Full members get access to the complete network chat, deal discussions, and direct lines to operators and capital partners moving in similar spaces.</div>
+      </div>
+      <div class="feature-row" onclick="toggleRow(this)">
+        <div class="row-header">
+          <div class="row-left"><div class="row-icon">&#128270;</div><div class="row-title">Deal Readiness Review</div></div>
+          <div class="row-arrow">&#9654;</div>
+        </div>
+        <div class="row-body">Before your deal goes in front of the network, it gets reviewed. A bad intro damages everyone in the room. Members who go through this process show up positioned to close, not just positioned to pitch.</div>
+      </div>
+      <div class="feature-row" onclick="toggleRow(this)">
+        <div class="row-header">
+          <div class="row-left"><div class="row-icon">&#127758;</div><div class="row-title">Gulf Region Capital Access</div></div>
+          <div class="row-arrow">&#9654;</div>
+        </div>
+        <div class="row-body">Through active relationships with US-UAE trade commissioners and Blue Harbor Group, TWC members have exposure to Gulf-region capital channels, including family offices and sovereign-adjacent capital deploying into US markets. Relationship-based, not mass outreach.</div>
+      </div>
+      <div class="feature-row" onclick="toggleRow(this)">
+        <div class="row-header">
+          <div class="row-left"><div class="row-icon">&#128196;</div><div class="row-title">Past Deals Archive</div></div>
+          <div class="row-arrow">&#9654;</div>
+        </div>
+        <div class="row-body">A running archive of past deals that have moved through the network, visible to all members. No company names or confidential details. Gives new members a real sense of deal velocity, structure, and the types of opportunities the network attracts.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="for-section">
+    <div class="section-label">Who this is built for</div>
+    <div class="for-cols">
+      <div class="for-col">
+        <div class="for-col-label">Operators &amp; Sponsors</div>
+        <div class="for-item"><span class="for-dot">&#9670;</span>Real estate sponsors raising $1M to $30M+</div>
+        <div class="for-item"><span class="for-dot">&#9670;</span>Multifamily and commercial operators hitting capital ceilings</div>
+        <div class="for-item"><span class="for-dot">&#9670;</span>Acquisition entrepreneurs moving from friends-and-family to institutional money</div>
+        <div class="for-item"><span class="for-dot">&#9670;</span>Founders in adjacent industries who need structured capital access</div>
+      </div>
+      <div class="for-col">
+        <div class="for-col-label">Capital Partners</div>
+        <div class="for-item"><span class="for-dot">&#9670;</span>Accredited investors seeking curated deal flow</div>
+        <div class="for-item"><span class="for-dot">&#9670;</span>Private lenders deploying $100K to $500K+ per deal</div>
+        <div class="for-item"><span class="for-dot">&#9670;</span>Family offices wanting vetted operator relationships</div>
+        <div class="for-item"><span class="for-dot">&#9670;</span>High-net-worth individuals looking for structured access to private markets</div>
+      </div>
+    </div>
+    <div class="not-for">
+      <div class="not-for-label">This is not for</div>
+      <p>Beginners looking for their first deal. People who want theory without implementation. Anyone expecting capital introductions before their positioning, offer, and infrastructure are ready. The network maintains standards because that's what makes it worth being in.</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <h3>Ready to talk about fit?</h3>
+    <p>Every conversation starts with understanding where you are, what you're raising, and whether this is the right environment for where you're going.</p>
+    <a class="cta-btn" href="#" target="_blank">Schedule a Call</a>
+  </div>
+
+  <div class="footer">
+    <span>Capital Unlocked &nbsp;&bull;&nbsp; The Wealth Circle</span><br><br>
+    This is not an offer to sell securities. Network introductions are facilitated on a relationship basis and do not constitute broker-dealer activity. Results depend on individual effort, deal quality, and market conditions.
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('visible');
+    btn.classList.add('active');
+  }
+  function toggleCard(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.feature-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+  function toggleRow(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.feature-row').forEach(r => r.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+</script>
+</body>
+</html>
