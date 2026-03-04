@@ -6,21 +6,21 @@
 <title>Capital Unlocked | The Wealth Circle</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #09090f; color: #e8e4dc; font-family: 'Georgia', serif; min-height: 100vh; overflow-x: hidden; }
+  body { background: #111118; color: #e8e4dc; font-family: 'Georgia', serif; min-height: 100vh; overflow-x: hidden; }
   .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #9b7f4e, #c49a4a); z-index: 200; transition: width 0.08s linear; width: 0%; }
   .container { max-width: 800px; margin: 0 auto; padding: 72px 32px 100px; position: relative; z-index: 1; }
-  .eyebrow { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #9b7f4e; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-  .eyebrow::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, #1e1c26, transparent); }
+  .eyebrow { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #c49a4a; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, #2e2c3a, transparent); }
   h1 { font-size: clamp(38px, 6.5vw, 62px); font-weight: normal; line-height: 1.08; letter-spacing: -0.025em; color: #f0ebe0; margin-bottom: 24px; }
   h1 em { color: #c49a4a; font-style: normal; }
-  .lede { font-family: 'Arial', sans-serif; font-size: 15px; color: #7a7265; line-height: 1.7; max-width: 560px; margin-bottom: 56px; }
-  .problem { border-left: 2px solid #9b7f4e; padding: 26px 30px; background: #0d0c16; margin-bottom: 64px; border-radius: 0 4px 4px 0; }
-  .problem p { font-size: 16px; line-height: 1.8; color: #b8b0a0; }
+  .lede { font-family: 'Arial', sans-serif; font-size: 15px; color: #9a9285; line-height: 1.7; max-width: 560px; margin-bottom: 56px; }
+  .problem { border-left: 2px solid #c49a4a; padding: 26px 30px; background: #181720; margin-bottom: 64px; border-radius: 0 4px 4px 0; }
+  .problem p { font-size: 16px; line-height: 1.8; color: #c8c0b0; }
   .problem p strong { color: #e8e4dc; font-weight: normal; }
-  .section-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #9b7f4e; margin-bottom: 24px; }
-  .tab-nav { display: flex; margin-bottom: 32px; background: #0d0c16; border: 1px solid #1a1826; border-radius: 6px; padding: 4px; width: fit-content; }
-  .tab-btn { background: transparent; border: none; padding: 11px 26px; font-family: 'Arial', sans-serif; font-size: 12px; letter-spacing: 0.08em; color: #4a4840; cursor: pointer; border-radius: 4px; transition: all 0.2s; text-transform: uppercase; }
-  .tab-btn.active { background: #16141f; color: #c49a4a; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+  .section-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #c49a4a; margin-bottom: 24px; }
+  .tab-nav { display: flex; margin-bottom: 32px; background: #181720; border: 1px solid #252333; border-radius: 6px; padding: 4px; width: fit-content; }
+  .tab-btn { background: transparent; border: none; padding: 11px 26px; font-family: 'Arial', sans-serif; font-size: 12px; letter-spacing: 0.08em; color: #6a6860; cursor: pointer; border-radius: 4px; transition: all 0.2s; text-transform: uppercase; }
+  .tab-btn.active { background: #211f2e; color: #c49a4a; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
   .tab-panel { display: none; animation: fadeUp 0.22s ease; }
   .tab-panel.visible { display: block; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -53,47 +53,47 @@
     .section { margin-bottom: 48px; }
     .for-section { margin-bottom: 48px; }
   }
-  .feature-card { background: #0d0c16; border: 1px solid #191727; border-radius: 6px; padding: 26px 24px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; position: relative; overflow: hidden; }
-  .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, #9b7f4e 0%, transparent 100%); opacity: 0; transition: opacity 0.2s; }
-  .feature-card:hover { border-color: #2e2b3a; transform: translateY(-2px); }
+  .feature-card { background: #181720; border: 1px solid #252333; border-radius: 6px; padding: 26px 24px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; position: relative; overflow: hidden; }
+  .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, #c49a4a 0%, transparent 100%); opacity: 0; transition: opacity 0.2s; }
+  .feature-card:hover { border-color: #352f45; transform: translateY(-2px); }
   .feature-card:hover::before { opacity: 1; }
-  .feature-card.open { border-color: #9b7f4e; background: #0f0e1a; }
+  .feature-card.open { border-color: #c49a4a; background: #1c1a2a; }
   .feature-card.open::before { opacity: 1; }
   .card-num { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: #c49a4a; margin-bottom: 10px; }
   .card-title { font-size: 16px; color: #e8e4dc; line-height: 1.3; }
-  .card-body { font-family: 'Arial', sans-serif; font-size: 13px; color: #7a7265; line-height: 1.7; margin-top: 14px; display: none; }
+  .card-body { font-family: 'Arial', sans-serif; font-size: 13px; color: #9a9285; line-height: 1.7; margin-top: 14px; display: none; }
   .feature-card.open .card-body { display: block; }
-  .card-arrow { position: absolute; top: 22px; right: 20px; font-size: 11px; color: #3a3530; transition: color 0.2s, transform 0.2s; }
-  .feature-card.open .card-arrow { color: #9b7f4e; transform: rotate(90deg); }
-  .feature-row { background: #0d0c16; border: 1px solid #191727; border-radius: 6px; padding: 22px 26px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.2s; }
-  .feature-row:hover { border-color: #2e2b3a; }
-  .feature-row.open { border-color: #9b7f4e; }
+  .card-arrow { position: absolute; top: 22px; right: 20px; font-size: 11px; color: #4a4550; transition: color 0.2s, transform 0.2s; }
+  .feature-card.open .card-arrow { color: #c49a4a; transform: rotate(90deg); }
+  .feature-row { background: #181720; border: 1px solid #252333; border-radius: 6px; padding: 22px 26px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.2s; }
+  .feature-row:hover { border-color: #352f45; }
+  .feature-row.open { border-color: #c49a4a; }
   .row-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   .row-left { display: flex; align-items: center; gap: 16px; }
-  .row-icon { width: 36px; height: 36px; background: #16141f; border: 1px solid #2a2636; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
-  .row-title { font-size: 15px; color: #d8d0c0; }
-  .row-arrow { font-size: 11px; color: #3a3530; transition: color 0.2s, transform 0.2s; flex-shrink: 0; }
-  .feature-row.open .row-arrow { color: #9b7f4e; transform: rotate(90deg); }
-  .row-body { font-family: 'Arial', sans-serif; font-size: 13px; color: #7a7265; line-height: 1.7; margin-top: 16px; padding-top: 16px; border-top: 1px solid #191727; display: none; }
+  .row-icon { width: 36px; height: 36px; background: #211f2e; border: 1px solid #2e2c3a; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .row-title { font-size: 15px; color: #e0d8c8; }
+  .row-arrow { font-size: 11px; color: #4a4550; transition: color 0.2s, transform 0.2s; flex-shrink: 0; }
+  .feature-row.open .row-arrow { color: #c49a4a; transform: rotate(90deg); }
+  .row-body { font-family: 'Arial', sans-serif; font-size: 13px; color: #9a9285; line-height: 1.7; margin-top: 16px; padding-top: 16px; border-top: 1px solid #252333; display: none; }
   .feature-row.open .row-body { display: block; }
   .for-section { margin-bottom: 64px; }
   .for-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .for-col { background: #0d0c16; border: 1px solid #191727; border-radius: 6px; padding: 28px 24px; }
-  .for-col-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #9b7f4e; margin-bottom: 16px; }
-  .for-item { font-family: 'Arial', sans-serif; font-size: 13px; color: #8a8070; line-height: 1.6; padding: 9px 0; border-bottom: 1px solid #14121e; display: flex; align-items: flex-start; gap: 10px; }
+  .for-col { background: #181720; border: 1px solid #252333; border-radius: 6px; padding: 28px 24px; }
+  .for-col-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #c49a4a; margin-bottom: 16px; }
+  .for-item { font-family: 'Arial', sans-serif; font-size: 13px; color: #9a9285; line-height: 1.6; padding: 9px 0; border-bottom: 1px solid #1e1c2a; display: flex; align-items: flex-start; gap: 10px; }
   .for-item:last-child { border-bottom: none; }
   .for-dot { color: #c49a4a; flex-shrink: 0; margin-top: 2px; }
-  .not-for { background: #0d0c16; border: 1px solid #191727; border-radius: 6px; padding: 24px 26px; margin-top: 14px; }
-  .not-for-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #4a3830; margin-bottom: 12px; }
-  .not-for p { font-family: 'Arial', sans-serif; font-size: 13px; color: #4a4840; line-height: 1.7; }
-  .cta-block { background: #0d0c16; border: 1px solid #1e1c2a; border-radius: 8px; padding: 48px 40px; text-align: center; position: relative; overflow: hidden; margin-bottom: 48px; }
-  .cta-block::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 240px; height: 1px; background: linear-gradient(90deg, transparent, #9b7f4e, transparent); }
+  .not-for { background: #181720; border: 1px solid #252333; border-radius: 6px; padding: 24px 26px; margin-top: 14px; }
+  .not-for-label { font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #6a4840; margin-bottom: 12px; }
+  .not-for p { font-family: 'Arial', sans-serif; font-size: 13px; color: #6a6860; line-height: 1.7; }
+  .cta-block { background: #181720; border: 1px solid #252333; border-radius: 8px; padding: 48px 40px; text-align: center; position: relative; overflow: hidden; margin-bottom: 48px; }
+  .cta-block::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 240px; height: 1px; background: linear-gradient(90deg, transparent, #c49a4a, transparent); }
   .cta-block h3 { font-size: clamp(24px, 4vw, 32px); font-weight: normal; color: #f0ebe0; margin-bottom: 14px; letter-spacing: -0.01em; }
-  .cta-block p { font-family: 'Arial', sans-serif; font-size: 14px; color: #5a5448; line-height: 1.65; max-width: 400px; margin: 0 auto 32px; }
-  .cta-btn { display: inline-block; background: #9b7f4e; color: #09090f; font-family: 'Arial', sans-serif; font-size: 12px; font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; padding: 16px 44px; border-radius: 3px; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
-  .cta-btn:hover { background: #c49a4a; transform: translateY(-1px); }
-  .footer { text-align: center; font-family: 'Arial', sans-serif; font-size: 11px; color: #2a2826; letter-spacing: 0.05em; padding-top: 32px; border-top: 1px solid #12111a; line-height: 1.8; }
-  .footer span { color: #3a3830; }
+  .cta-block p { font-family: 'Arial', sans-serif; font-size: 14px; color: #7a7265; line-height: 1.65; max-width: 400px; margin: 0 auto 32px; }
+  .cta-btn { display: inline-block; background: #c49a4a; color: #111118; font-family: 'Arial', sans-serif; font-size: 12px; font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; padding: 16px 44px; border-radius: 3px; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+  .cta-btn:hover { background: #d4aa5a; transform: translateY(-1px); }
+  .footer { text-align: center; font-family: 'Arial', sans-serif; font-size: 11px; color: #3a3838; letter-spacing: 0.05em; padding-top: 32px; border-top: 1px solid #1e1c2a; line-height: 1.8; }
+  .footer span { color: #5a5450; }
   .section { margin-bottom: 64px; }
 </style>
 </head>
@@ -107,7 +107,7 @@
 
   <h1>The infrastructure<br>serious capital raisers<br>are <em>missing.</em></h1>
 
-  <p class="lede">Two programs. One ecosystem. Built for operators who are done piecing it together and need the real structure, real network, and real coaching to move capital at scale.</p>
+  <p class="lede">Two programs. One ecosystem. Built for operators who are done piecing it together and need the real structure, real network, and real execution to move capital at scale.</p>
 
   <div class="problem">
     <p>Most people raising capital aren't losing because the deal is bad. They're losing because they don't look like someone worth betting on. <strong>No structure. No track record presentation. No access to real capital partners.</strong> That's the gap. That's what this fixes.</p>
